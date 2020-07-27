@@ -4,6 +4,9 @@ const successNotify = document.getElementById('notity-success');
 
 const numberKeyPad = document.querySelector('.numbers');
 let userInput = document.getElementById('user-input-pin');
+const submitBtn = document.getElementById('submit-btn');
+let tryLeft = document.getElementById('numOfTry');
+let totalTry = 3;
 
 // Hide Section
 function hideAllMessage() {
@@ -12,14 +15,20 @@ function hideAllMessage() {
 }
 hideAllMessage();
 
+function resetStage() {
+  totalTry = 3;
+  tryLeft.innerText = totalTry;
+  userInput.value = '';
+  hideAllMessage();
+}
+
 // Rendom digit generate part
 const generateBtn = document.getElementById('generate-btn');
 const generatedPin = document.getElementById('show-pin');
 
 generateBtn.addEventListener('click', function () {
   generatedPin.value = randomRange(1000, 9999);
-  userInput.value = '';
-  hideAllMessage();
+  resetStage();
 });
 
 function randomRange(minNum, maxNum) {
@@ -56,5 +65,11 @@ function varifyUserInput() {
     successNotify.style.display = 'block';
   } else {
     wrongNotify.style.display = 'block';
+    totalTry--;
+    tryLeft.innerText = totalTry;
+    if (totalTry == 0) {
+      submitBtn.disabled = true;
+      submitBtn.style.backgroundColor = '#3d4153';
+    }
   }
 }
