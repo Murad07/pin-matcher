@@ -4,7 +4,9 @@ const successNotify = document.getElementById('notity-success');
 
 const numberKeyPad = document.querySelector('.numbers');
 let userInput = document.getElementById('user-input-pin');
+
 const submitBtn = document.getElementById('submit-btn');
+
 let tryLeft = document.getElementById('numOfTry');
 let totalTry = 3;
 
@@ -14,13 +16,6 @@ function hideAllMessage() {
   successNotify.style.display = 'none';
 }
 hideAllMessage();
-
-function resetStage() {
-  totalTry = 3;
-  tryLeft.innerText = totalTry;
-  userInput.value = '';
-  hideAllMessage();
-}
 
 // Rendom digit generate part
 const generateBtn = document.getElementById('generate-btn');
@@ -35,7 +30,7 @@ function randomRange(minNum, maxNum) {
   return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
 }
 
-// User digit pad part. Type digit for unlock
+// Key pad, User Input provide part.
 numberKeyPad.addEventListener('click', function (e) {
   hideAllMessage();
   let target = e.target;
@@ -44,18 +39,26 @@ numberKeyPad.addEventListener('click', function (e) {
 
 function keyPadInput(target) {
   if (target.classList.contains('button')) {
+    // when click on 'C' btn
     if (target.dataset.type == 'clear') {
       userInput.value = '';
-    } else if (target.dataset.type == 'backSpace') {
+    }
+    // when click on '<' btn
+    else if (target.dataset.type == 'backSpace') {
       let inputString = userInput.value;
       userInput.value = inputString.slice(0, inputString.length - 1);
-    } else {
+    }
+    // when click on the rest number btn
+    else {
       const result = target.innerHTML;
       userInput.value += result;
     }
   }
 
-  if (target.classList.contains('submit-btn')) {
+  if (
+    target.classList.contains('submit-btn') &&
+    generatedPin.value.length > 0
+  ) {
     varifyUserInput();
   }
 }
@@ -63,13 +66,24 @@ function keyPadInput(target) {
 function varifyUserInput() {
   if (userInput.value == generatedPin.value) {
     successNotify.style.display = 'block';
-  } else {
+  }
+  // when not matching the user input
+  else {
     wrongNotify.style.display = 'block';
     totalTry--;
     tryLeft.innerText = totalTry;
+
     if (totalTry == 0) {
       submitBtn.disabled = true;
       submitBtn.style.backgroundColor = '#3d4153';
     }
   }
+}
+
+// Initial Stage Property Reset
+function resetStage() {
+  totalTry = 3;
+  tryLeft.innerText = totalTry;
+  userInput.value = '';
+  hideAllMessage();
 }
