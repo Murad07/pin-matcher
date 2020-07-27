@@ -12,8 +12,8 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="pin-generator half-width">
-                    <input class="form-control" type="text">
-                    <button class="generate-btn">Generate Pin</button>
+                    <input class="form-control" id="show-pin" type="text">
+                    <button class="generate-btn" id="generate-btn">Generate Pin</button>
                 </div>
             </div>
             <div class="col-md-6">
@@ -50,9 +50,11 @@
             </div>
         </div>
         <div class="notify-section">
-            <p class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+            <p class="notify" id="notify-wrong">❌ Pin Didn't Match, Please try again</p>
+            <p class="notify" id="notity-success">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
