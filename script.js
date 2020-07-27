@@ -1,16 +1,25 @@
-// Initial hide section
+// Initial variable
 const wrongNotify = document.getElementById('notify-wrong');
-wrongNotify.style.display = 'none';
-
 const successNotify = document.getElementById('notity-success');
-successNotify.style.display = 'none';
+
+const numberKeyPad = document.querySelector('.numbers');
+let userInput = document.getElementById('user-input-pin');
+
+// Hide Section
+function hideAllMessage() {
+  wrongNotify.style.display = 'none';
+  successNotify.style.display = 'none';
+}
+hideAllMessage();
 
 // Rendom digit generate part
 const generateBtn = document.getElementById('generate-btn');
+const generatedPin = document.getElementById('show-pin');
 
 generateBtn.addEventListener('click', function () {
-  document.getElementById('show-pin').value = randomRange(1000, 9999);
-  console.log(randomRange(1000, 9999));
+  generatedPin.value = randomRange(1000, 9999);
+  userInput.value = '';
+  hideAllMessage();
 });
 
 function randomRange(minNum, maxNum) {
@@ -18,13 +27,13 @@ function randomRange(minNum, maxNum) {
 }
 
 // User digit pad part. Type digit for unlock
-const numberKeyPad = document.querySelector('.numbers');
-let userInput = document.getElementById('user-input-pin');
-
 numberKeyPad.addEventListener('click', function (e) {
+  hideAllMessage();
   let target = e.target;
+  keyPadInput(target);
+});
 
-  // Update Input value digit part
+function keyPadInput(target) {
   if (target.classList.contains('button')) {
     if (target.dataset.type == 'clear') {
       userInput.value = '';
@@ -36,4 +45,16 @@ numberKeyPad.addEventListener('click', function (e) {
       userInput.value += result;
     }
   }
-});
+
+  if (target.classList.contains('submit-btn')) {
+    varifyUserInput();
+  }
+}
+
+function varifyUserInput() {
+  if (userInput.value == generatedPin.value) {
+    successNotify.style.display = 'block';
+  } else {
+    wrongNotify.style.display = 'block';
+  }
+}
