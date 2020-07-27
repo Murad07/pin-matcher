@@ -35,30 +35,30 @@ function randomRange(minNum, maxNum) {
 // Key pad, User Input provide part.
 numberKeyPad.addEventListener('click', function (e) {
   hideAllMessage();
-  let target = e.target;
-  keyPadInput(target);
+  let targetKey = e.target;
+  keyPadInput(targetKey);
 });
 
-function keyPadInput(target) {
-  if (target.classList.contains('button')) {
+function keyPadInput(targetKey) {
+  if (targetKey.classList.contains('button')) {
     // when click on 'C' btn
-    if (target.dataset.type == 'clear') {
+    if (targetKey.dataset.type == 'clear') {
       userInput.value = '';
     }
     // when click on '<' btn
-    else if (target.dataset.type == 'backSpace') {
+    else if (targetKey.dataset.type == 'backSpace') {
       let inputString = userInput.value;
       userInput.value = inputString.slice(0, inputString.length - 1);
     }
     // when click on the rest number btn
     else {
-      const result = target.innerHTML;
-      userInput.value += result;
+      const newDigit = targetKey.innerHTML;
+      userInput.value += newDigit;
     }
   }
 
   if (
-    target.classList.contains('submit-btn') &&
+    targetKey.classList.contains('submit-btn') &&
     generatedPin.value.length > 0
   ) {
     varifyUserInput();
