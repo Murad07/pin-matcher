@@ -24,18 +24,16 @@ let userInput = document.getElementById('user-input-pin');
 numberKeyPad.addEventListener('click', function (e) {
   let target = e.target;
 
-  // Update Input value
+  // Update Input value digit part
   if (target.classList.contains('button')) {
-    const result = target.innerHTML;
-    console.log(result);
-    userInput.value += result;
-  }
-
-  // Submit to check varification
-  if (target.classList.contains('button')) {
+    if (target.dataset.type == 'clear') {
+      userInput.value = '';
+    } else if (target.dataset.type == 'backSpace') {
+      let inputString = userInput.value;
+      userInput.value = inputString.slice(0, inputString.length - 1);
+    } else {
+      const result = target.innerHTML;
+      userInput.value += result;
+    }
   }
 });
-
-function clear(elem, value) {
-  return (elem.innerHTML = value);
-}
