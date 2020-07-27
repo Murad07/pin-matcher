@@ -23,6 +23,8 @@ const generatedPin = document.getElementById('show-pin');
 
 generateBtn.addEventListener('click', function () {
   generatedPin.value = randomRange(1000, 9999);
+  submitBtn.disabled = false;
+  submitBtn.style.backgroundColor = '#495bc3';
   resetStage();
 });
 
